@@ -1,0 +1,3 @@
+## ingressClass Type
+
+`string`

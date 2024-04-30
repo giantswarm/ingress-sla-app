@@ -25,12 +25,7 @@ There are several ways to install this app onto a workload cluster.
 
 ### values.yaml
 
-**This is an example of a values file you could upload using our web interface.**
-
-```yaml
-# values.yaml
-
-```
+See [values documentation](docs/schema/values.md).
 
 ### Sample App CR and ConfigMap for the management cluster
 
