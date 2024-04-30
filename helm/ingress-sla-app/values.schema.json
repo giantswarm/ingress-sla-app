@@ -178,6 +178,5 @@
   "required": [
     "baseDomain",
     "global"
-  ],
-  "title": "Values"
+  ]
 }

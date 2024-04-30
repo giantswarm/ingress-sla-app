@@ -1,3 +1,0 @@
-## ingressClass Type
-
-`string`

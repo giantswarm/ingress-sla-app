@@ -1,3 +1,0 @@
-## baseDomain Type
-
-`string`
