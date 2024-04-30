@@ -1,4 +1,4 @@
-{{- range .Values.checks }}
+{{- range .Values.global.checks }}
 {{- $data := dict "root" $ "context" . }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress

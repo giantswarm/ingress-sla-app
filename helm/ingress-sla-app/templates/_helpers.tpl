@@ -32,7 +32,7 @@ application.giantswarm.io/branch: {{ .Chart.Annotations.branch | replace "#" "-"
 application.giantswarm.io/commit: {{ .Chart.Annotations.commit | quote }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 giantswarm.io/managed-by: {{ .Release.Name | quote }}
-giantswarm.io/service-type: {{ .Values.serviceType }}
+giantswarm.io/service-type: "managed"
 helm.sh/chart: {{ include "ingress-sla-app.chart" . | quote }}
 {{- end -}}
 
@@ -50,8 +50,8 @@ Ingress host in the given context
 {{- $baseDomain := .root.Values.baseDomain -}}
 {{- if .baseDomain -}}
   {{- $baseDomain := .context.baseDomain -}}
-{{- else if .root.Values.checkDefaults.baseDomain -}}
-  {{- $baseDomain := .root.Values.checkDefaults.baseDomain -}}
+{{- else if .root.Values.global.checkDefaults.baseDomain -}}
+  {{- $baseDomain := .root.Values.global.checkDefaults.baseDomain -}}
 {{- end -}}
 {{ include "ingress-sla-app.name" .root }}.{{ $baseDomain }}
 {{- end -}}
@@ -67,7 +67,7 @@ ServiceMonitor name in the given context
 ClusterIssuer name in the given context
 */}}
 {{- define "ingress-sla-app.certManager.ClusterIssuer.name" -}}
-{{- $clusterIssuer := .root.Values.checkDefaults.certManager.clusterIssuer.name -}}
+{{- $clusterIssuer := .root.Values.global.checkDefaults.certManager.clusterIssuer.name -}}
 {{- if (((.context.certManager).clusterIssuer).name) -}}
   {{- $clusterIssuer := .context.certManager.clusterIssuer.name -}}
 {{- end -}}
@@ -78,7 +78,7 @@ ClusterIssuer name in the given context
 Blackbox exporter namespaceSelector in the given context
 */}}
 {{- define "ingress-sla-app.blackboxExporter.namespaceSelector" -}}
-{{- $namespaceSelector := .root.Values.checkDefaults.blackboxExporter.namespaceSelector -}}
+{{- $namespaceSelector := .root.Values.global.checkDefaults.blackboxExporter.namespaceSelector -}}
 {{- if ((.context.blackboxExporter).namespaceSelector) -}}
   {{- $namespaceSelector := .context.blackboxExporter.namespaceSelector -}}
 {{- end -}}
@@ -90,7 +90,7 @@ Blackbox exporter namespaceSelector in the given context
 Blackbox exporter selector in the given context
 */}}
 {{- define "ingress-sla-app.blackboxExporter.selector" -}}
-{{- $selector := .root.Values.checkDefaults.blackboxExporter.selector -}}
+{{- $selector := .root.Values.global.checkDefaults.blackboxExporter.selector -}}
 {{- if ((.context.blackboxExporter).selector) -}}
   {{- $selector := .context.blackboxExporter.selector -}}
 {{- end -}}
