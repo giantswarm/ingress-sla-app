@@ -1,0 +1,31 @@
+{{- range .Values.checks }}
+{{- $data := dict "root" $ "context" . }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "ingress-sla-app.ingress.name" $data }}
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cert-manager.io/cluster-issuer: {{ include "ingress-sla-app.certManager.ClusterIssuer.name" $data }}
+  labels:
+    {{- include "ingress-sla-app.labels.common" $ | nindent 4 }}
+spec:
+  ingressClassName: {{ .ingressClass }}
+  rules:
+    - host: ingress-nginx-blackbox.${cluster}.gaws.gigantic.io
+      http:
+        paths:
+        - backend:
+            # The service below is purposefully hardcoded. We don't want to give
+            # control over what we base our SLA measurements on.
+            service:
+              name: net-exporter
+              port:
+                number: 8000
+          path: /blackbox
+          pathType: Exact
+  tls:
+    - hosts:
+      - ingress-nginx-blackbox.${cluster}.gaws.gigantic.io
+      secretName: ingress-nginx-blackbox-cert
+{{- end }} 

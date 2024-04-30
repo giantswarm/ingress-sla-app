@@ -1,12 +1,28 @@
 name: ingress-sla-app
 serviceType: managed
 
-project:
-  branch: "[[ .Branch ]]"
-  commit: "[[ .SHA ]]"
+# Defaults to the value configured in the "giantswarm" App Catalog.
+baseDomain: ""
 
-image:
-  registry: quay.io
-  name: giantswarm/ingress-sla-app
-  tag: v0.0.1
-  pullPolicy: IfNotPresent
+checkDefaults:
+  blackboxExporter:
+    namespaceSelector:
+      matchNames:
+        - kube-system
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: prometheus-blackbox-exporter
+        app.kubernetes.io/name: prometheus-blackbox-exporter
+  certManager:
+    clusterIssuer:
+      name: letsencrypt-giantswarm
+
+checks: []
+# - ingressClass: nginx      # required
+#   baseDomain: ""           # defaults .checkDefaults.baseDomain 
+#   certManager: 
+#     clusterIssuer:
+#       name:                # defaults to .checkDefaults.certManager
+#   blackboxExporter:
+#     namespaceSelector: {}  # defaults to checkDefaults.blackboxExporter.namespaceSelector
+#     selector: {}           # defaults to checkDefaults.blackboxExporter.selector
