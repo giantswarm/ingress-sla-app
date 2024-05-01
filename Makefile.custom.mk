@@ -5,7 +5,7 @@ HELM_SCHEMA := ./bin/helm-schema_$(HELM_SCHEMA_VERSION)
 
 .PHONY: gen-schma
 gen-schema: $(HELM_SCHEMA) ## Generates schema.
-	$(HELM_SCHEMA)
+	$(HELM_SCHEMA) -l debug
 
 $(HELM_SCHEMA): OS := $(shell go env GOOS)
 $(HELM_SCHEMA): ARCH := $(shell go env GOARCH | sed 's/amd64/x86_64/')
