@@ -12,7 +12,7 @@ metadata:
 spec:
   ingressClassName: {{ .ingressClass }}
   rules:
-    - host: ingress-nginx-blackbox.${cluster}.gaws.gigantic.io
+    - host: {{ include "ingress-sla-app.ingress.host" $data }}
       http:
         paths:
         - backend:

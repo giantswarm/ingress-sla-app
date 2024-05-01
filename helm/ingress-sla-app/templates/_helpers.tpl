@@ -48,12 +48,12 @@ Ingress host in the given context
 */}}
 {{- define "ingress-sla-app.ingress.host" -}}
 {{- $baseDomain := .root.Values.baseDomain -}}
-{{- if .baseDomain -}}
-  {{- $baseDomain := .context.baseDomain -}}
+{{- if .context.baseDomain -}}
+  {{- $baseDomain = .context.baseDomain -}}
 {{- else if .root.Values.global.checkDefaults.baseDomain -}}
-  {{- $baseDomain := .root.Values.global.checkDefaults.baseDomain -}}
+  {{- $baseDomain = .root.Values.global.checkDefaults.baseDomain -}}
 {{- end -}}
-{{ include "ingress-sla-app.name" .root }}.{{ $baseDomain }}
+{{ .context.ingressClass }}.{{ include "ingress-sla-app.name" .root }}.{{ $baseDomain }}
 {{- end -}}
 
 {{/*
@@ -69,7 +69,7 @@ ClusterIssuer name in the given context
 {{- define "ingress-sla-app.certManager.ClusterIssuer.name" -}}
 {{- $clusterIssuer := .root.Values.global.checkDefaults.certManager.clusterIssuer.name -}}
 {{- if (((.context.certManager).clusterIssuer).name) -}}
-  {{- $clusterIssuer := .context.certManager.clusterIssuer.name -}}
+  {{- $clusterIssuer = .context.certManager.clusterIssuer.name -}}
 {{- end -}}
 {{ $clusterIssuer }}
 {{- end -}}
@@ -80,7 +80,7 @@ Blackbox exporter namespaceSelector in the given context
 {{- define "ingress-sla-app.blackboxExporter.namespaceSelector" -}}
 {{- $namespaceSelector := .root.Values.global.checkDefaults.blackboxExporter.namespaceSelector -}}
 {{- if ((.context.blackboxExporter).namespaceSelector) -}}
-  {{- $namespaceSelector := .context.blackboxExporter.namespaceSelector -}}
+  {{- $namespaceSelector = .context.blackboxExporter.namespaceSelector -}}
 {{- end -}}
 {{ toYaml $namespaceSelector }}
 {{- end -}}
@@ -92,7 +92,7 @@ Blackbox exporter selector in the given context
 {{- define "ingress-sla-app.blackboxExporter.selector" -}}
 {{- $selector := .root.Values.global.checkDefaults.blackboxExporter.selector -}}
 {{- if ((.context.blackboxExporter).selector) -}}
-  {{- $selector := .context.blackboxExporter.selector -}}
+  {{- $selector = .context.blackboxExporter.selector -}}
 {{- end -}}
 {{ toYaml $selector }}
 {{- end -}}

@@ -1,0 +1,43 @@
+suite: test baseDomain setting
+tests:
+  - it: should fallback to .baseDomain (1st level)
+    set:
+      baseDomain: test.1st.base.doman.com
+      global:
+        checks:
+          - ingressClass: my-ingress-class
+    template: ingresses.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: spec.rules[0].host
+          value: my-ingress-class.ingress-sla.test.1st.base.doman.com
+  - it: should prioritise .global.checkDefaults.baseDomain (2nd level)
+    set:
+      baseDomain: test.1st.base.doman.com
+      global:
+        checkDefaults:
+          baseDomain: test.2nd.base.doman.com
+        checks:
+          - ingressClass: my-ingress-class
+    template: ingresses.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: spec.rules[0].host
+          value: my-ingress-class.ingress-sla.test.2nd.base.doman.com
+  - it: should prioritise .global.checks[].baseDomain (3rd level)
+    set:
+      baseDomain: test.1st.base.doman.com
+      global:
+        checkDefaults:
+          baseDomain: test.2nd.base.doman.com
+        checks:
+          - ingressClass: my-ingress-class
+            baseDomain: test.3rd.base.doman.com
+    template: ingresses.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: spec.rules[0].host
+          value: my-ingress-class.ingress-sla.test.3rd.base.doman.com
