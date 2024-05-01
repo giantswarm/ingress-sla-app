@@ -76,8 +76,8 @@ global:
   # -- SLA checks for ingress classes.
   checks: []
   # - ingressClass: nginx      # required
-  #   baseDomain: ""           # defaults .checkDefaults.baseDomain 
-  #   certManager: 
+  #   baseDomain: ""           # defaults .checkDefaults.baseDomain
+  #   certManager:
   #     clusterIssuer:
   #       name:                # defaults to .checkDefaults.certManager
   #   blackboxExporter:
