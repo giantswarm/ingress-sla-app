@@ -1,0 +1,37 @@
+suite: cert-manager ClusterIssuer settings
+set:
+  global:
+    checks:
+      - ingressClass: test-ingress-1
+      - ingressClass: test-ingress-2
+        certManager:
+          clusterIssuer:
+            name: my-cluster-issuer
+tests:
+  - it: should use letsencrypt-giantswarm default
+    template: ingresses.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: metadata.annotations["cert-manager.io/cluster-issuer"]
+          value: letsencrypt-giantswarm
+  - it: should allow default overwrites
+    set:
+      global:
+        checkDefaults:
+          certManager:
+            clusterIssuer:
+              name: my-default-cluster-issuer
+    template: ingresses.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: metadata.annotations["cert-manager.io/cluster-issuer"]
+          value: my-default-cluster-issuer
+  - it: should allow single overwrites
+    template: ingresses.yaml
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: metadata.annotations["cert-manager.io/cluster-issuer"]
+          value: my-cluster-issuer

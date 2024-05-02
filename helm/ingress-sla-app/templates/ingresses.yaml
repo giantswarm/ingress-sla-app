@@ -1,5 +1,6 @@
 {{- range .Values.global.checks }}
 {{- $data := dict "root" $ "context" . }}
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -26,6 +27,6 @@ spec:
           pathType: Exact
   tls:
     - hosts:
-      - ingress-nginx-blackbox.${cluster}.gaws.gigantic.io
+      -  {{ include "ingress-sla-app.ingress.host" $data }}
       secretName: ingress-nginx-blackbox-cert
 {{- end }} 

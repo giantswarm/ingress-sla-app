@@ -1,0 +1,35 @@
+suite: resource names generation
+set:
+  global:
+    checks:
+      - ingressClass: my-ingress-class
+      - ingressClass: another-class
+tests:
+  - it: Ingress[0] should inherit name form the provided ingressClass
+    template: ingresses.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: metadata.name
+          value: ingress-sla-my-ingress-class-blackbox
+  - it: Ingress[1] should inherit name form the provided ingressClass
+    template: ingresses.yaml
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: metadata.name
+          value: ingress-sla-another-class-blackbox
+  - it: ServiceMonitor[0] should inherit name form the provided ingressClass
+    template: service-monitors.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: metadata.name
+          value: ingress-sla-my-ingress-class-blackbox-http
+  - it: ServiceMonitor[1] should inherit name form the provided ingressClass
+    template: service-monitors.yaml
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: metadata.name
+          value: ingress-sla-another-class-blackbox-http

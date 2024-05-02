@@ -71,7 +71,7 @@ ClusterIssuer name in the given context
 {{- if (((.context.certManager).clusterIssuer).name) -}}
   {{- $clusterIssuer = .context.certManager.clusterIssuer.name -}}
 {{- end -}}
-{{ $clusterIssuer }}
+{{- $clusterIssuer -}}
 {{- end -}}
 
 {{/*
@@ -93,6 +93,12 @@ Blackbox exporter selector in the given context
 {{- $selector := .root.Values.global.checkDefaults.blackboxExporter.selector -}}
 {{- if ((.context.blackboxExporter).selector) -}}
   {{- $selector = .context.blackboxExporter.selector -}}
+{{- end -}}
+{{- if not $selector -}}
+  {{- $matchLabels := dict -}}
+  {{- $_ := set $matchLabels "app.kubernetes.io/instance" "prometheus-blackbox-exporter" -}}
+  {{- $_ := set $matchLabels "app.kubernetes.io/name" "prometheus-blackbox-exporter" -}}
+  {{- $selector = dict "matchLabels" $matchLabels -}}
 {{- end -}}
 {{ toYaml $selector }}
 {{- end -}}

@@ -1,0 +1,95 @@
+suite: blackbox-exporter selectors settings
+set:
+  global:
+    checks:
+      - ingressClass: test-ingress-0
+      - ingressClass: test-ingress-1
+        blackboxExporter:
+          namespaceSelector:
+            matchNames:
+              - my-ns-from-ingress-1
+          selector:
+            matchLabels:
+              my-label: my-value-from-ingress-1
+tests:
+  - it: should select prometheus-blackbox-exporter by default
+    template: service-monitors.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: spec.namespaceSelector
+          value:
+            matchNames:
+              - kube-system
+      - equal:
+          path: spec.selector
+          value: 
+            matchLabels:
+              app.kubernetes.io/instance: prometheus-blackbox-exporter
+              app.kubernetes.io/name: prometheus-blackbox-exporter
+
+  - it: should allow global blackbox-exporter selectors overwrite
+    set:
+      global:
+        checkDefaults:
+          blackboxExporter:
+            namespaceSelector:
+              matchNames:
+                - my-ns-from-global
+            selector:
+              matchLabels:
+                my-label: my-value-from-global
+    template: service-monitors.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: spec.namespaceSelector
+          value:
+            matchNames:
+              - my-ns-from-global
+      - equal:
+          path: spec.selector
+          value: 
+            matchLabels:
+              my-label: my-value-from-global
+
+
+  - it: should allow per-check blackbox-exporter selectors overwrites
+    template: service-monitors.yaml
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: spec.namespaceSelector
+          value:
+            matchNames:
+              - my-ns-from-ingress-1
+      - equal:
+          path: spec.selector
+          value: 
+            matchLabels:
+              my-label: my-value-from-ingress-1
+
+  - it: should prioritise per-check blackbox-exporter selectors overwrites
+    set:
+      global:
+        checkDefaults:
+          blackboxExporter:
+            namespaceSelector:
+              matchNames:
+                - my-ns-from-global
+            selector:
+              matchLabels:
+                my-label: my-value-from-global
+    template: service-monitors.yaml
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: spec.namespaceSelector
+          value:
+            matchNames:
+              - my-ns-from-ingress-1
+      - equal:
+          path: spec.selector
+          value: 
+            matchLabels:
+              my-label: my-value-from-ingress-1

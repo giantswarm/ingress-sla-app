@@ -23,66 +23,26 @@
               "additionalProperties": false,
               "properties": {
                 "namespaceSelector": {
-                  "additionalProperties": false,
-                  "properties": {
-                    "matchNames": {
-                      "items": {
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          }
-                        ]
-                      },
-                      "title": "matchNames",
-                      "type": "array"
-                    }
-                  },
+                  "additionalProperties": true,
                   "description": "Namespace selector to select blackbox_exporter Pod(s) as defined in\n`kubectl explain servicemonitor.spec.namespaceSelector`. Can be\noverwritten in a specific check.",
                   "title": "namespaceSelector",
-                  "type": "object",
-                  "required": [
-                    "matchNames"
-                  ]
+                  "type": "object"
                 },
                 "selector": {
-                  "additionalProperties": false,
-                  "properties": {
+                  "additionalProperties": true,
+                  "default": {
                     "matchLabels": {
-                      "additionalProperties": false,
-                      "properties": {
-                        "app.kubernetes.io/instance": {
-                          "default": "prometheus-blackbox-exporter",
-                          "title": "app.kubernetes.io/instance",
-                          "type": "string"
-                        },
-                        "app.kubernetes.io/name": {
-                          "default": "prometheus-blackbox-exporter",
-                          "title": "app.kubernetes.io/name",
-                          "type": "string"
-                        }
-                      },
-                      "title": "matchLabels",
-                      "type": "object",
-                      "required": [
-                        "app.kubernetes.io/instance",
-                        "app.kubernetes.io/name"
-                      ]
+                      "app.kubernetes.io/instance": "prometheus-blackbox-exporter",
+                      "app.kubernetes.io/name": "prometheus-blackbox-exporter"
                     }
                   },
-                  "description": "Selector to select blackbox_exporter Pod(s) as defined in `kubectl\nexplain servicemonitor.spec.selector`. Defaults to\n.checkDefaults.blackboxExporter.selector. Can be overwritten in a\nspecific check.",
+                  "description": "Selector to select blackbox_exporter Pod(s) as defined in `kubectl\nexplain servicemonitor.spec.selector`. Can be overwritten in a\nspecific check.",
                   "title": "selector",
-                  "type": "object",
-                  "required": [
-                    "matchLabels"
-                  ]
+                  "type": "object"
                 }
               },
               "title": "blackboxExporter",
-              "type": "object",
-              "required": [
-                "namespaceSelector",
-                "selector"
-              ]
+              "type": "object"
             },
             "certManager": {
               "additionalProperties": false,
@@ -130,10 +90,12 @@
               "blackboxExporter": {
                 "properties": {
                   "namespaceSelector": {
+                    "additionalProperties": true,
                     "description": "Namespace selector to select blackbox_exporter Pod(s) as defined\nin `kubectl explain servicemonitor.spec.namespaceSelector`.\nDefaults to .checkDefaults.blackboxExporter.namespaceSelector.\n",
                     "type": "object"
                   },
                   "selector": {
+                    "additionalProperties": true,
                     "description": "Selector to select blackbox_exporter Pod(s) as defined in\n`kubectl explain servicemonitor.spec.selector`. Defaults to\n.checkDefaults.blackboxExporter.selector.\n",
                     "type": "object"
                   }

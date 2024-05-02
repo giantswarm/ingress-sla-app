@@ -4,7 +4,7 @@ HELM_SCHEMA_VERSION := 0.11.1
 HELM_SCHEMA := ./bin/helm-schema-$(HELM_SCHEMA_VERSION)
 
 HELM_UNITTEST_VERSION := 0.5.0
-HELM_UNITTEST := ./bin/helm-unittest-0.5.0
+HELM_UNITTEST := ./bin/helm-unittest-$(HELM_UNITTEST_VERSION)
 
 .PHONY: gen-schma
 gen-schema: $(HELM_SCHEMA) ## Generates schema.
