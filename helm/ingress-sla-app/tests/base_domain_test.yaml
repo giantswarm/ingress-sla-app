@@ -1,0 +1,60 @@
+suite: baseDomain setting
+set:
+  baseDomain: my-cluster.com
+  global:
+    checks:
+      - ingressClass: my-ingress-0
+      - ingressClass: my-ingress-1
+        baseDomain: my-ingress-1.com
+tests:
+  - it: should fallback to .baseDomain
+    template: ingresses.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: spec.rules[0].host
+          value: my-ingress-0.ingress-sla.my-cluster.com
+      - equal:
+          path: spec.tls[0].hosts[0]
+          value: my-ingress-0.ingress-sla.my-cluster.com
+
+  - it: should allow global .baseDomain overwrite
+    set:
+      global:
+        checkDefaults:
+          baseDomain: my-global.com
+    template: ingresses.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: spec.rules[0].host
+          value: my-ingress-0.ingress-sla.my-global.com
+      - equal:
+          path: spec.tls[0].hosts[0]
+          value: my-ingress-0.ingress-sla.my-global.com
+
+  - it: should allow per-check .baseDomain overwrite
+    template: ingresses.yaml
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: spec.rules[0].host
+          value: my-ingress-1.ingress-sla.my-ingress-1.com
+      - equal:
+          path: spec.tls[0].hosts[0]
+          value: my-ingress-1.ingress-sla.my-ingress-1.com
+
+  - it: should prioritise per-check .baseDomain overwrite
+    set:
+      global:
+        checkDefaults:
+          baseDomain: my-global-to-be-ignored.com
+    template: ingresses.yaml
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: spec.rules[0].host
+          value: my-ingress-1.ingress-sla.my-ingress-1.com
+      - equal:
+          path: spec.tls[0].hosts[0]
+          value: my-ingress-1.ingress-sla.my-ingress-1.com
