@@ -1,19 +1,14 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/ingress-sla-app/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/ingress-sla-app/tree/main)
 
-[Read me after cloning this template (GS staff only)](https://handbook.giantswarm.io/docs/dev-and-releng/app-developer-processes/adding_app_to_appcatalog/)
-
 # ingress-sla-app chart
 
-Giant Swarm offers a ingress-sla-app App which can be installed in workload clusters.
-Here we define the ingress-sla-app chart with its templates and default configuration.
+This app is required to enable SLA monitoring for Ingress in Giant Swarm cluster.
 
-**What is this app?**
-
-**Why did we add it?**
-
-**Who can use it?**
+> **NOTE:** It requires [prometheus-blackbox-exporter-app](https://github.com/giantswarm/prometheus-blackbox-exporter-app) to be installed i the cluster.
 
 ## Installing
+
+> **NOTE:** It requires [prometheus-blackbox-exporter-app](https://github.com/giantswarm/prometheus-blackbox-exporter-app) to be installed i the cluster.
 
 There are several ways to install this app onto a workload cluster.
 
@@ -23,48 +18,20 @@ There are several ways to install this app onto a workload cluster.
 
 ## Configuring
 
-### values.yaml
+Configuration is explained in the comments of [`values.yaml`](helm/ingress-sla-app/values.yaml) file.
 
-**This is an example of a values file you could upload using our web interface.**
-
-```yaml
-# values.yaml
-
-```
-
-### Sample App CR and ConfigMap for the management cluster
-
-If you have access to the Kubernetes API on the management cluster, you could create
-the App CR and ConfigMap directly.
-
-Here is an example that would install the app to
-workload cluster `abc12`:
+A minimal working configuration can look like this:
 
 ```yaml
-# appCR.yaml
-
+global:
+  checks:
+    - ingressClass: nginx
 ```
 
-```yaml
-# user-values-configmap.yaml
+It assumes that:
 
-```
+- Giant Swarm provided base domain is used
+- `letsencrypt-giantswarm` `ClusterIssuer` is used for certificates
+- [prometheus-blackbox-exporter-app](https://github.com/giantswarm/prometheus-blackbox-exporter-app) is installed with default selector labels
 
-See our [full reference on how to configure apps](https://docs.giantswarm.io/getting-started/app-platform/app-configuration/) for more details.
-
-## Compatibility
-
-This app has been tested to work with the following workload cluster release versions:
-
-- _add release version_
-
-## Limitations
-
-Some apps have restrictions on how they can be deployed.
-Not following these limitations will most likely result in a broken deployment.
-
-- _add limitation_
-
-## Credit
-
-- {APP HELM REPOSITORY}
+All of the settings above can be overwritten on the check or global level.
