@@ -4,16 +4,16 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "ingress-sla-app.ingress.name" $data }}
+  name: {{ include "ingress-sla.ingress.name" $data }}
   namespace: {{ $.Release.Namespace }}
   annotations:
-    cert-manager.io/cluster-issuer: {{ include "ingress-sla-app.certManager.ClusterIssuer.name" $data }}
+    cert-manager.io/cluster-issuer: {{ include "ingress-sla.certManager.ClusterIssuer.name" $data }}
   labels:
-    {{- include "ingress-sla-app.labels.common" $ | nindent 4 }}
+    {{- include "ingress-sla.labels.common" $ | nindent 4 }}
 spec:
   ingressClassName: {{ .ingressClass }}
   rules:
-    - host: {{ include "ingress-sla-app.ingress.host" $data }}
+    - host: {{ include "ingress-sla.ingress.host" $data }}
       http:
         paths:
         - backend:
@@ -27,6 +27,6 @@ spec:
           pathType: Exact
   tls:
     - hosts:
-      -  {{ include "ingress-sla-app.ingress.host" $data }}
+      -  {{ include "ingress-sla.ingress.host" $data }}
       secretName: ingress-nginx-blackbox-cert
 {{- end }} 
