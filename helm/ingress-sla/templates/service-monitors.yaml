@@ -4,10 +4,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "ingress-sla-app.serviceMonitor.name" $data }}
+  name: {{ include "ingress-sla.serviceMonitor.name" $data }}
   namespace: {{ $.Release.Namespace }}
   labels:
-    {{- include "ingress-sla-app.labels.common" $ | nindent 4 }}
+    {{- include "ingress-sla.labels.common" $ | nindent 4 }}
 spec:
   endpoints:
   - interval: 60s
@@ -17,24 +17,24 @@ spec:
       - instance
       targetLabel: instance
     - action: replace
-      replacement: {{ include "ingress-sla-app.ingress.name" $data }}
+      replacement: {{ include "ingress-sla.ingress.name" $data }}
       sourceLabels:
       - target
       targetLabel: target
     params:
       hostname:
-      - {{ include "ingress-sla-app.ingress.host" $data }}
+      - {{ include "ingress-sla.ingress.host" $data }}
       module:
       - http_2xx
       target:
-      - https://{{ include "ingress-sla-app.ingress.host" $data }}/blackbox
+      - https://{{ include "ingress-sla.ingress.host" $data }}/blackbox
     path: /probe
     port: http
     scheme: http
     scrapeTimeout: 5s
   jobLabel: prometheus-blackbox-exporter
   namespaceSelector:
-    {{- include "ingress-sla-app.blackboxExporter.namespaceSelector" $data | nindent 4 }}
+    {{- include "ingress-sla.blackboxExporter.namespaceSelector" $data | nindent 4 }}
   selector:
-    {{- include "ingress-sla-app.blackboxExporter.selector" $data | nindent 4 }}
+    {{- include "ingress-sla.blackboxExporter.selector" $data | nindent 4 }}
 {{- end }} 
