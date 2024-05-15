@@ -4,11 +4,11 @@
 
 This app is required to enable SLA monitoring for Ingress in Giant Swarm cluster.
 
-> **NOTE:** It requires [prometheus-blackbox-exporter-app](https://github.com/giantswarm/prometheus-blackbox-exporter-app) to be installed i the cluster.
+> **NOTE:** It requires [prometheus-blackbox-exporter-app](https://github.com/giantswarm/prometheus-blackbox-exporter-app) to be installed in the cluster.
 
 ## Installing
 
-> **NOTE:** It requires [prometheus-blackbox-exporter-app](https://github.com/giantswarm/prometheus-blackbox-exporter-app) to be installed i the cluster.
+> **NOTE:** It requires [prometheus-blackbox-exporter-app](https://github.com/giantswarm/prometheus-blackbox-exporter-app) to be installed in the cluster.
 
 There are several ways to install this app onto a workload cluster.
 
