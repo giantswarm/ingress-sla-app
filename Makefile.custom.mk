@@ -12,7 +12,7 @@ gen-schema: $(HELM_SCHEMA) ## Generates schema.
 
 .PHONY: unit-test
 unit-test: $(HELM_UNITTEST) ## Run Helm chart unit tests.
-	$(HELM_UNITTEST) ./helm/ingress-sla-app
+	$(HELM_UNITTEST) ./helm/ingress-sla
 
 $(HELM_SCHEMA): OS := $(shell go env GOOS)
 $(HELM_SCHEMA): ARCH := $(shell go env GOARCH | sed 's/amd64/x86_64/')
