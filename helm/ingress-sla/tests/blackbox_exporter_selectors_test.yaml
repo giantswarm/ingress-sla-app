@@ -1,16 +1,17 @@
 suite: blackbox-exporter selectors settings
 set:
   global:
-    checks:
-      - ingressClass: test-ingress-0
-      - ingressClass: test-ingress-1
-        blackboxExporter:
-          namespaceSelector:
-            matchNames:
-              - my-ns-from-ingress-1
-          selector:
-            matchLabels:
-              my-label: my-value-from-ingress-1
+    ingressSLA:
+      checks:
+        - ingressClass: test-ingress-0
+        - ingressClass: test-ingress-1
+          blackboxExporter:
+            namespaceSelector:
+              matchNames:
+                - my-ns-from-ingress-1
+            selector:
+              matchLabels:
+                my-label: my-value-from-ingress-1
 tests:
   - it: should select prometheus-blackbox-exporter by default
     template: service-monitors.yaml
@@ -31,14 +32,15 @@ tests:
   - it: should allow global blackbox-exporter selectors overwrite
     set:
       global:
-        checkDefaults:
-          blackboxExporter:
-            namespaceSelector:
-              matchNames:
-                - my-ns-from-global
-            selector:
-              matchLabels:
-                my-label: my-value-from-global
+        ingressSLA:
+          checkDefaults:
+            blackboxExporter:
+              namespaceSelector:
+                matchNames:
+                  - my-ns-from-global
+              selector:
+                matchLabels:
+                  my-label: my-value-from-global
     template: service-monitors.yaml
     documentIndex: 0
     asserts:
@@ -72,14 +74,15 @@ tests:
   - it: should prioritise per-check blackbox-exporter selectors overwrites
     set:
       global:
-        checkDefaults:
-          blackboxExporter:
-            namespaceSelector:
-              matchNames:
-                - my-ns-from-global
-            selector:
-              matchLabels:
-                my-label: my-value-from-global
+        ingressSLA:
+          checkDefaults:
+            blackboxExporter:
+              namespaceSelector:
+                matchNames:
+                  - my-ns-from-global
+              selector:
+                matchLabels:
+                  my-label: my-value-from-global
     template: service-monitors.yaml
     documentIndex: 1
     asserts:

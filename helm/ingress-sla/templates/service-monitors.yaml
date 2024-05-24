@@ -1,4 +1,4 @@
-{{- range .Values.global.checks }}
+{{- range .Values.global.ingressSLA.checks }}
 {{- $data := dict "root" $ "context" . }}
 ---
 apiVersion: monitoring.coreos.com/v1

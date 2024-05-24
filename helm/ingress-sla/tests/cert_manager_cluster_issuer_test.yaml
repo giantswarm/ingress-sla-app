@@ -1,12 +1,13 @@
 suite: cert-manager ClusterIssuer settings
 set:
   global:
-    checks:
-      - ingressClass: test-ingress-1
-      - ingressClass: test-ingress-2
-        certManager:
-          clusterIssuer:
-            name: my-cluster-issuer
+    ingressSLA:
+      checks:
+        - ingressClass: test-ingress-1
+        - ingressClass: test-ingress-2
+          certManager:
+            clusterIssuer:
+              name: my-cluster-issuer
 tests:
   - it: should use letsencrypt-giantswarm default
     template: ingresses.yaml
@@ -18,10 +19,11 @@ tests:
   - it: should allow default overwrites
     set:
       global:
-        checkDefaults:
-          certManager:
-            clusterIssuer:
-              name: my-default-cluster-issuer
+        ingressSLA:
+          checkDefaults:
+            certManager:
+              clusterIssuer:
+                name: my-default-cluster-issuer
     template: ingresses.yaml
     documentIndex: 0
     asserts:

@@ -1,9 +1,10 @@
 suite: resource names generation
 set:
   global:
-    checks:
-      - ingressClass: my-ingress-class
-      - ingressClass: another-class
+    ingressSLA:
+      checks:
+        - ingressClass: my-ingress-class
+        - ingressClass: another-class
 tests:
   - it: Ingress[0] should inherit name form the provided ingressClass
     template: ingresses.yaml

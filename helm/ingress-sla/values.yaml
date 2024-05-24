@@ -2,108 +2,109 @@
 baseDomain: ""
 
 global:
-  # -- SLA checks' defaults.
-  checkDefaults:
-    # -- Default base domain for the ingress, defaults to .baseDomain. Can be
-    # overwritten in a specific check.
-    baseDomain: ""
-    blackboxExporter:
-      # @schema
-      # type: object
-      # additionalProperties: true
-      # properties: {}
-      # @schema
-      # -- Namespace selector to select blackbox_exporter Pod(s) as defined in
-      # `kubectl explain servicemonitor.spec.namespaceSelector`. Can be
+  ingressSLA:
+    # -- SLA checks' defaults.
+    checkDefaults:
+      # -- Default base domain for the ingress, defaults to .baseDomain. Can be
       # overwritten in a specific check.
-      namespaceSelector:
-        matchNames:
-          - kube-system
-      # @schema
-      # type: object
-      # additionalProperties: true
-      # properties: {}
-      # default:
-      #   matchLabels:
-      #     app.kubernetes.io/instance: prometheus-blackbox-exporter
-      #     app.kubernetes.io/name: prometheus-blackbox-exporter
-      # @schema
-      # -- Selector to select blackbox_exporter Pod(s) as defined in `kubectl
-      # explain servicemonitor.spec.selector`. Can be overwritten in a
-      # specific check.
-      selector: {}  # ::NOTE:: please read the comment below
-        # ::NOTE:: This will be the default if nothing is set. It isn't set here
-        # explicitly because it would be difficult to overwrite given the way
-        # helm merges provided values.
-        #
-        # See https://helm.sh/docs/chart_template_guide/values_files/#deleting-a-default-key
-        #
-        #     matchLabels:
-        #       app.kubernetes.io/instance: prometheus-blackbox-exporter
-        #       app.kubernetes.io/name: prometheus-blackbox-exporter
-        #
-    certManager:
-      clusterIssuer:
-        # -- Name of the ClusterIssuer to be used to generate TLS certificates
-        # for the measured Ingress object. Defaults to
-        # .checkDefaults.certManager.clusterIssuer.name
-        name: letsencrypt-giantswarm
+      baseDomain: ""
+      blackboxExporter:
+        # @schema
+        # type: object
+        # additionalProperties: true
+        # properties: {}
+        # @schema
+        # -- Namespace selector to select blackbox_exporter Pod(s) as defined in
+        # `kubectl explain servicemonitor.spec.namespaceSelector`. Can be
+        # overwritten in a specific check.
+        namespaceSelector:
+          matchNames:
+            - kube-system
+        # @schema
+        # type: object
+        # additionalProperties: true
+        # properties: {}
+        # default:
+        #   matchLabels:
+        #     app.kubernetes.io/instance: prometheus-blackbox-exporter
+        #     app.kubernetes.io/name: prometheus-blackbox-exporter
+        # @schema
+        # -- Selector to select blackbox_exporter Pod(s) as defined in `kubectl
+        # explain servicemonitor.spec.selector`. Can be overwritten in a
+        # specific check.
+        selector: {}  # ::NOTE:: please read the comment below
+          # ::NOTE:: This will be the default if nothing is set. It isn't set here
+          # explicitly because it would be difficult to overwrite given the way
+          # helm merges provided values.
+          #
+          # See https://helm.sh/docs/chart_template_guide/values_files/#deleting-a-default-key
+          #
+          #     matchLabels:
+          #       app.kubernetes.io/instance: prometheus-blackbox-exporter
+          #       app.kubernetes.io/name: prometheus-blackbox-exporter
+          #
+      certManager:
+        clusterIssuer:
+          # -- Name of the ClusterIssuer to be used to generate TLS certificates
+          # for the measured Ingress object. Defaults to
+          # .checkDefaults.certManager.clusterIssuer.name
+          name: letsencrypt-giantswarm
 
-  # @schema
-  # type: array
-  # items:
-  #   type: object
-  #   properties:
-  #     ingressClass:
-  #       type: string
-  #       description: |
-  #         Ingress class, subject to SLA.
-  #     baseDomain:
-  #       required: false
-  #       type: string
-  #       description: |
-  #         Base domain for the ingress, defaults to .checkDefaults.baseDomain.
-  #     blackboxExporter:
-  #       required: false
-  #       type: object
-  #       properties:
-  #         namespaceSelector:
-  #           type: object
-  #           additionalProperties: true
-  #           description: |
-  #             Namespace selector to select blackbox_exporter Pod(s) as defined
-  #             in `kubectl explain servicemonitor.spec.namespaceSelector`.
-  #             Defaults to .checkDefaults.blackboxExporter.namespaceSelector.
-  #           properties: {}
-  #         selector:
-  #           type: object
-  #           additionalProperties: true
-  #           description: |
-  #             Selector to select blackbox_exporter Pod(s) as defined in
-  #             `kubectl explain servicemonitor.spec.selector`. Defaults to
-  #             .checkDefaults.blackboxExporter.selector.
-  #           properties: {}
-  #     certManager:
-  #       required: false
-  #       type: object
-  #       properties:
-  #         clusterIssuer:
-  #           type: object
-  #           properties:
-  #             name:
-  #               type: string
-  #               description: |
-  #                 Name of the ClusterIssuer to be used to generate TLS
-  #                 certificates for the measured Ingress object. Defaults to
-  #                 .checkDefaults.certManager.clusterIssuer.name
-  # @schema
-  # -- SLA checks for ingress classes.
-  checks: []
-  # - ingressClass: nginx      # required
-  #   baseDomain: ""           # defaults .checkDefaults.baseDomain
-  #   certManager:
-  #     clusterIssuer:
-  #       name:                # defaults to .checkDefaults.certManager
-  #   blackboxExporter:
-  #     namespaceSelector: {}  # defaults to checkDefaults.blackboxExporter.namespaceSelector
-  #     selector: {}           # defaults to checkDefaults.blackboxExporter.selector
+    # @schema
+    # type: array
+    # items:
+    #   type: object
+    #   properties:
+    #     ingressClass:
+    #       type: string
+    #       description: |
+    #         Ingress class, subject to SLA.
+    #     baseDomain:
+    #       required: false
+    #       type: string
+    #       description: |
+    #         Base domain for the ingress, defaults to .checkDefaults.baseDomain.
+    #     blackboxExporter:
+    #       required: false
+    #       type: object
+    #       properties:
+    #         namespaceSelector:
+    #           type: object
+    #           additionalProperties: true
+    #           description: |
+    #             Namespace selector to select blackbox_exporter Pod(s) as defined
+    #             in `kubectl explain servicemonitor.spec.namespaceSelector`.
+    #             Defaults to .checkDefaults.blackboxExporter.namespaceSelector.
+    #           properties: {}
+    #         selector:
+    #           type: object
+    #           additionalProperties: true
+    #           description: |
+    #             Selector to select blackbox_exporter Pod(s) as defined in
+    #             `kubectl explain servicemonitor.spec.selector`. Defaults to
+    #             .checkDefaults.blackboxExporter.selector.
+    #           properties: {}
+    #     certManager:
+    #       required: false
+    #       type: object
+    #       properties:
+    #         clusterIssuer:
+    #           type: object
+    #           properties:
+    #             name:
+    #               type: string
+    #               description: |
+    #                 Name of the ClusterIssuer to be used to generate TLS
+    #                 certificates for the measured Ingress object. Defaults to
+    #                 .checkDefaults.certManager.clusterIssuer.name
+    # @schema
+    # -- SLA checks for ingress classes.
+    checks: []
+    # - ingressClass: nginx      # required
+    #   baseDomain: ""           # defaults .checkDefaults.baseDomain
+    #   certManager:
+    #     clusterIssuer:
+    #       name:                # defaults to .checkDefaults.certManager
+    #   blackboxExporter:
+    #     namespaceSelector: {}  # defaults to checkDefaults.blackboxExporter.namespaceSelector
+    #     selector: {}           # defaults to checkDefaults.blackboxExporter.selector
