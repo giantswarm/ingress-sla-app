@@ -1,5 +1,5 @@
 {
-  "additionalProperties": false,
+  "additionalProperties": true,
   "properties": {
     "baseDomain": {
       "default": "",
@@ -8,7 +8,7 @@
       "type": "string"
     },
     "global": {
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "ingressSLA": {
           "additionalProperties": false,
