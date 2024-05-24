@@ -1,4 +1,6 @@
 # -- Defaults to the value configured in the "giantswarm" App Catalog.
+clusterID: ""
+# -- Defaults to the value configured in the "giantswarm" App Catalog.
 baseDomain: ""
 
 # @schema
@@ -31,7 +33,7 @@ global:
         # properties: {}
         # default:
         #   matchLabels:
-        #     app.kubernetes.io/instance: prometheus-blackbox-exporter
+        #     app.kubernetes.io/instance: CLUSTER_ID-prometheus-blackbox-exporter
         #     app.kubernetes.io/name: prometheus-blackbox-exporter
         # @schema
         # -- Selector to select blackbox_exporter Pod(s) as defined in `kubectl

@@ -7,6 +7,12 @@
       "title": "baseDomain",
       "type": "string"
     },
+    "clusterID": {
+      "default": "",
+      "description": "Defaults to the value configured in the \"giantswarm\" App Catalog.",
+      "title": "clusterID",
+      "type": "string"
+    },
     "global": {
       "additionalProperties": true,
       "properties": {
@@ -35,7 +41,7 @@
                       "additionalProperties": true,
                       "default": {
                         "matchLabels": {
-                          "app.kubernetes.io/instance": "prometheus-blackbox-exporter",
+                          "app.kubernetes.io/instance": "CLUSTER_ID-prometheus-blackbox-exporter",
                           "app.kubernetes.io/name": "prometheus-blackbox-exporter"
                         }
                       },
@@ -148,6 +154,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "required": [
+    "clusterID",
     "baseDomain",
     "global"
   ]

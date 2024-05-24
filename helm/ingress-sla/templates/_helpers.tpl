@@ -96,7 +96,7 @@ Blackbox exporter selector in the given context
 {{- end -}}
 {{- if not $selector -}}
   {{- $matchLabels := dict -}}
-  {{- $_ := set $matchLabels "app.kubernetes.io/instance" "prometheus-blackbox-exporter" -}}
+  {{- $_ := set $matchLabels "app.kubernetes.io/instance" (printf "%s-prometheus-blackbox-exporter" .root.Values.clusterID) -}}
   {{- $_ := set $matchLabels "app.kubernetes.io/name" "prometheus-blackbox-exporter" -}}
   {{- $selector = dict "matchLabels" $matchLabels -}}
 {{- end -}}
