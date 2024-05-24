@@ -9,6 +9,7 @@ HELM_UNITTEST := ./bin/helm-unittest-$(HELM_UNITTEST_VERSION)
 .PHONY: gen-schma
 gen-schema: $(HELM_SCHEMA) ## Generates schema.
 	$(HELM_SCHEMA) -l debug
+	sed -i 's/^  "additionalProperties": false,$$/  "additionalProperties": true,/g' ./helm/ingress-sla/values.schema.json
 
 .PHONY: unit-test
 unit-test: $(HELM_UNITTEST) ## Run Helm chart unit tests.
