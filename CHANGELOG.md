@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Move all `.global` values to `.global.ingressSLA`.
+
 ### Fixed
 
 - Allow root level additional properties in schema.

@@ -50,8 +50,8 @@ Ingress host in the given context
 {{- $baseDomain := .root.Values.baseDomain -}}
 {{- if .context.baseDomain -}}
   {{- $baseDomain = .context.baseDomain -}}
-{{- else if .root.Values.global.checkDefaults.baseDomain -}}
-  {{- $baseDomain = .root.Values.global.checkDefaults.baseDomain -}}
+{{- else if .root.Values.global.ingressSLA.checkDefaults.baseDomain -}}
+  {{- $baseDomain = .root.Values.global.ingressSLA.checkDefaults.baseDomain -}}
 {{- end -}}
 {{ .context.ingressClass }}.{{ include "ingress-sla.name" .root }}.{{ $baseDomain }}
 {{- end -}}
@@ -67,7 +67,7 @@ ServiceMonitor name in the given context
 ClusterIssuer name in the given context
 */}}
 {{- define "ingress-sla.certManager.ClusterIssuer.name" -}}
-{{- $clusterIssuer := .root.Values.global.checkDefaults.certManager.clusterIssuer.name -}}
+{{- $clusterIssuer := .root.Values.global.ingressSLA.checkDefaults.certManager.clusterIssuer.name -}}
 {{- if (((.context.certManager).clusterIssuer).name) -}}
   {{- $clusterIssuer = .context.certManager.clusterIssuer.name -}}
 {{- end -}}
@@ -78,7 +78,7 @@ ClusterIssuer name in the given context
 Blackbox exporter namespaceSelector in the given context
 */}}
 {{- define "ingress-sla.blackboxExporter.namespaceSelector" -}}
-{{- $namespaceSelector := .root.Values.global.checkDefaults.blackboxExporter.namespaceSelector -}}
+{{- $namespaceSelector := .root.Values.global.ingressSLA.checkDefaults.blackboxExporter.namespaceSelector -}}
 {{- if ((.context.blackboxExporter).namespaceSelector) -}}
   {{- $namespaceSelector = .context.blackboxExporter.namespaceSelector -}}
 {{- end -}}
@@ -90,7 +90,7 @@ Blackbox exporter namespaceSelector in the given context
 Blackbox exporter selector in the given context
 */}}
 {{- define "ingress-sla.blackboxExporter.selector" -}}
-{{- $selector := .root.Values.global.checkDefaults.blackboxExporter.selector -}}
+{{- $selector := .root.Values.global.ingressSLA.checkDefaults.blackboxExporter.selector -}}
 {{- if ((.context.blackboxExporter).selector) -}}
   {{- $selector = .context.blackboxExporter.selector -}}
 {{- end -}}

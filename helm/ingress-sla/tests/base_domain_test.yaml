@@ -2,10 +2,11 @@ suite: baseDomain setting
 set:
   baseDomain: my-cluster.com
   global:
-    checks:
-      - ingressClass: my-ingress-0
-      - ingressClass: my-ingress-1
-        baseDomain: my-ingress-1.com
+    ingressSLA:
+      checks:
+        - ingressClass: my-ingress-0
+        - ingressClass: my-ingress-1
+          baseDomain: my-ingress-1.com
 tests:
   - it: should fallback to .baseDomain
     template: ingresses.yaml
@@ -21,8 +22,9 @@ tests:
   - it: should allow global .baseDomain overwrite
     set:
       global:
-        checkDefaults:
-          baseDomain: my-global.com
+        ingressSLA:
+          checkDefaults:
+            baseDomain: my-global.com
     template: ingresses.yaml
     documentIndex: 0
     asserts:
@@ -47,8 +49,9 @@ tests:
   - it: should prioritise per-check .baseDomain overwrite
     set:
       global:
-        checkDefaults:
-          baseDomain: my-global-to-be-ignored.com
+        ingressSLA:
+          checkDefaults:
+            baseDomain: my-global-to-be-ignored.com
     template: ingresses.yaml
     documentIndex: 1
     asserts:
