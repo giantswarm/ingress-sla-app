@@ -8,7 +8,7 @@
       "type": "string"
     },
     "global": {
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "checkDefaults": {
           "additionalProperties": false,

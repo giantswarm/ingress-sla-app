@@ -1,6 +1,11 @@
 # -- Defaults to the value configured in the "giantswarm" App Catalog.
 baseDomain: ""
 
+# @schema
+# type: object
+# additionalProperties: true
+# required: true
+# @schema
 global:
   # -- SLA checks' defaults.
   checkDefaults:
