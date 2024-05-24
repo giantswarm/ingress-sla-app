@@ -30,8 +30,9 @@ A minimal working configuration can look like this:
 
 ```yaml
 global:
-  checks:
-    - ingressClass: nginx
+  ingressSLA:
+    checks:
+      - ingressClass: nginx
 ```
 
 It assumes that:
