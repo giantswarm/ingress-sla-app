@@ -1,5 +1,6 @@
 suite: blackbox-exporter selectors settings
 set:
+  clusterID: myClusterID
   global:
     ingressSLA:
       checks:
@@ -26,7 +27,7 @@ tests:
           path: spec.selector
           value: 
             matchLabels:
-              app.kubernetes.io/instance: prometheus-blackbox-exporter
+              app.kubernetes.io/instance: myClusterID-prometheus-blackbox-exporter
               app.kubernetes.io/name: prometheus-blackbox-exporter
 
   - it: should allow global blackbox-exporter selectors overwrite

@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Allow root level additional properties in schema.
 - Allow additional properties under `.global` in schema.
+- Set default `prometheus-blackbox-exporter` selector to include `clusterID` in the `app.kubernetes.io/instance` label.
 
 ## [0.1.0] - 2024-05-24
 
