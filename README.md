@@ -11,10 +11,10 @@ This app requires following apps to be installed in the cluster:
 - [`prometheus-blackbox-exporter-app`](https://github.com/giantswarm/prometheus-blackbox-exporter-app)
 - [`net-exporter`](https://github.com/giantswarm/net-exporter) >1.19.0, this will be installed with:
     - `cluster-aws` 0.24.0 and higher
-    - `default-apps-eks` version **after** 0.8.0 (TODO) and higher
-    - `default-apps-azure` version **after** 0.13.1 (TODO) and higher
-    - `default-apps-vsphere` version **after** 0.14.0 (TODO) and higher
-    - `default-apps-cloud-director` version **after** 0.8.0 (TODO) and higher
+    - `default-apps-eks` 0.8.1 and higher (or any version `cluster-eks` when `defaut-apps-eks` are merged)
+    - `cluster-azure` 0.14.0 and higher
+    - `default-apps-vsphere` 0.15.0 and higher (or any version `cluster-vsphere` when `defaut-apps-eks` are merged)
+    - `default-apps-cloud-director` 0.9.0 and higher(or any version `cluster-cloud-director` when `defaut-apps-eks` are merged)
 
 There are several ways to install this app onto a workload cluster.
 
